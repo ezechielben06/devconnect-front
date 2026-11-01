@@ -1,0 +1,8 @@
+{
+  "name": "DevConnect",
+  "description": "Plateforme d'élite pour développeurs propulsée par NV TEAM (Gbenagnon Narcisse AVLESSI & Mahukpégo Vertueux NOUKPO) pour le Challenge CADEV 2026.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

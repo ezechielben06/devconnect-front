@@ -1,0 +1,346 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-canvas: #eaf1f8;
+    --surface-1: #ffffff;
+    --surface-2: #e4eefa;
+    --surface-3: #cfe2f7;
+    --surface-border: #bfdbfe;
+    --text-primary: #0a1128;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --accent-blue: #0066ff;
+    --accent-emerald: #059669;
+    --accent-amber: #d97706;
+  }
+  .dark {
+    --bg-canvas: #050811;
+    --surface-1: #090d1a;
+    --surface-2: #0f172a;
+    --surface-3: #1e293b;
+    --surface-border: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-blue: #0080ff;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+  }
+  html, body, button, input, textarea, select {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  code, pre, kbd, samp, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  /* Anneau de focus visible et net */
+  :focus-visible {
+    outline: 2px solid #0066ff;
+    outline-offset: 2px;
+  }
+}
+
+/* ==========================================================================
+   MASQUAGE GLOBAL DE LA BARRE DE DÉFILEMENT (SCROLLBAR HIDING)
+   Défilement 100% préservé et fluide mais sans aucune scrollbar disgracieuse
+   ========================================================================== */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  width: 100%;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.scrollbar-none, .no-scrollbar {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+.scrollbar-none::-webkit-scrollbar, .no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Surfaces flottantes en verre dépoli adaptées au thème */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 102, 255, 0.14);
+  box-shadow: 0 4px 20px rgba(0, 102, 255, 0.07);
+}
+.dark .glass-panel {
+  background: rgba(9, 13, 26, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+/* Carte interactive avec retour doux au survol */
+.glass-card-interactive {
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.glass-card-interactive:hover {
+  border-color: rgba(0, 102, 255, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 102, 255, 0.08);
+}
+.dark .glass-card-interactive:hover {
+  border-color: rgba(0, 128, 255, 0.45);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Pilule discrète sans surcharge */
+.glass-pill {
+  border-radius: 9999px;
+  background: rgba(0, 102, 255, 0.06);
+  border: 1px solid rgba(0, 102, 255, 0.15);
+}
+.dark .glass-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Effet Vitre Liquide translucide qui prend la couleur de la page derrière */
+.glass-ios-nav {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px) saturate(190%);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.40);
+  box-shadow: 
+    0 16px 40px -10px rgba(0, 102, 255, 0.08),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px 0 rgba(0, 102, 255, 0.04);
+  position: relative;
+}
+.dark .glass-ios-nav {
+  background: rgba(5, 8, 17, 0.18);
+  backdrop-filter: blur(18px) saturate(190%);
+  -webkit-backdrop-filter: blur(18px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 18px 45px -8px rgba(0, 0, 0, 0.50),
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 2px 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+/* Effet Vitre Liquide haute lisibilité pour la barre de navigation basse sur mobile & tablette */
+.glass-ios-bottom-nav {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-top: 1px solid rgba(0, 102, 255, 0.12) !important;
+  box-shadow: 
+    0 -10px 30px -5px rgba(0, 0, 0, 0.12),
+    0 -1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  will-change: transform;
+  z-index: 50 !important;
+}
+.dark .glass-ios-bottom-nav {
+  background: rgba(10, 15, 30, 0.94) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 
+    0 -10px 35px -5px rgba(0, 0, 0, 0.70),
+    0 -1px 3px rgba(0, 0, 0, 0.40),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.15) !important;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  will-change: transform;
+  z-index: 50 !important;
+}
+
+.pb-safe {
+  padding-bottom: max(0.6rem, env(safe-area-inset-bottom, 14px)) !important;
+}
+
+/* Squelette de chargement avec shimmer sémantique */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(15, 23, 42, 0.05) 25%,
+    rgba(15, 23, 42, 0.1) 50%,
+    rgba(15, 23, 42, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite ease-in-out;
+}
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite ease-in-out;
+}
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Animation d'apparition discrète */
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   THÈME OFFICIEL VS CODE DARK+ POUR LA COLORATION SYNTAXIQUE EN TEMPS RÉEL
+   ========================================================================== */
+.vscode-theme {
+  background-color: #1E1E1E !important;
+  color: #D4D4D4 !important;
+  font-family: 'JetBrains Mono', Consolas, Monaco, 'Courier New', monospace !important;
+}
+.vscode-theme .token.comment, .vscode-theme .token.prolog, .vscode-theme .token.doctype, .vscode-theme .token.cdata {
+  color: #6A9955 !important;
+  font-style: italic !important;
+}
+.vscode-theme .token.punctuation {
+  color: #D4D4D4 !important;
+}
+.vscode-theme .token.property, .vscode-theme .token.tag, .vscode-theme .token.constant, .vscode-theme .token.symbol, .vscode-theme .token.deleted {
+  color: #569CD6 !important;
+}
+.vscode-theme .token.boolean, .vscode-theme .token.number {
+  color: #B5CEA8 !important;
+}
+.vscode-theme .token.selector, .vscode-theme .token.attr-name, .vscode-theme .token.string, .vscode-theme .token.char, .vscode-theme .token.builtin, .vscode-theme .token.inserted {
+  color: #CE9178 !important;
+}
+.vscode-theme .token.operator, .vscode-theme .token.entity, .vscode-theme .token.url, .vscode-theme .language-css .token.string, .vscode-theme .style .token.string {
+  color: #D4D4D4 !important;
+}
+.vscode-theme .token.atrule, .vscode-theme .token.attr-value, .vscode-theme .token.keyword {
+  color: #C586C0 !important;
+}
+.vscode-theme .token.function, .vscode-theme .token.class-name {
+  color: #DCDCAA !important;
+}
+.vscode-theme .token.class-name, .vscode-theme .token.type-variable {
+  color: #4EC9B0 !important;
+}
+.vscode-theme .token.regex, .vscode-theme .token.important, .vscode-theme .token.variable {
+  color: #9CDCFE !important;
+}
+
+/* ==========================================================================
+   STYLE DEVCONNECT FOOTER WATERMARK 3D & HOVER DEPTH
+   ========================================================================== */
+.footer-watermark-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+.footer-watermark-letter {
+  display: inline-block;
+  user-select: none;
+  font-weight: 900;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.35s ease, filter 0.35s ease;
+  color: #ffffff;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(148, 163, 184, 0.4) 40%, rgba(15, 23, 42, 0.95) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.35);
+  text-shadow: 
+    0 1px 0 #334155,
+    0 2px 0 #1e293b,
+    0 3px 0 #172033,
+    0 4px 0 #0f172a,
+    0 5px 0 #0b0f19,
+    0 6px 0 #070a12,
+    0 7px 1px rgba(0, 0, 0, 0.8),
+    0 10px 20px rgba(0, 0, 0, 0.9),
+    0 0 35px rgba(0, 102, 255, 0.2);
+  transform: perspective(800px) rotateX(12deg) rotateY(-1deg);
+  will-change: transform, text-shadow, filter;
+}
+.footer-watermark-letter.is-active, .footer-watermark-letter:hover {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.95);
+  background-image: linear-gradient(180deg, #FFFFFF 0%, #E0F2FE 20%, #38BDF8 55%, #0066FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 
+    0 1px 0 #E0F2FE,
+    0 2px 0 #BAE6FD,
+    0 3px 0 #7DD3FC,
+    0 4px 0 #38BDF8,
+    0 5px 0 #0284C7,
+    0 6px 0 #0369A1,
+    0 7px 0 #075985,
+    0 8px 0 #0C4A6E,
+    0 9px 2px rgba(0, 0, 0, 0.85),
+    0 14px 28px rgba(0, 210, 255, 0.95),
+    0 0 60px rgba(0, 102, 255, 0.85);
+  transform: translateY(-14px) scale(1.1) perspective(800px) rotateX(4deg) translateZ(30px);
+  filter: drop-shadow(0 0 30px rgba(0, 210, 255, 0.95));
+}
+
+/* ==========================================================================
+   TEXTURE DE GRAIN MATHÉMATIQUE PROCÉDURAL
+   ========================================================================== */
+.mathematical-grain-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='mathNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23mathNoise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+}
+.mathematical-grain-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='mathNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23mathNoise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  opacity: 0.095;
+  mix-blend-mode: multiply;
+}
+.dark .mathematical-grain-overlay {
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+}
